@@ -1,15 +1,17 @@
+
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
+// create  a new Component
+// const is es6 syntax, it will not change that is the main difference between var and const
+// es6 syntax using => 
+const App = () => {
 
-import App from './components/app';
-import reducers from './reducers';
+  {/* Webpack/babel transpiles JSX to vanilla JS */}
 
-const createStoreWithMiddleware = applyMiddleware()(createStore);
+  return <div>Hi!</div>;
 
-ReactDOM.render(
-  <Provider store={createStoreWithMiddleware(reducers)}>
-    <App />
-  </Provider>
-  , document.querySelector('.container'));
+}
+
+// Take this Component's HTML and put it in the DOM
+// have to pass the instance not class, so dont pass App but wrap it in JSX tags
+ReactDOM.render(<App />, document.querySelector('.container'));
