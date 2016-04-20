@@ -1,14 +1,19 @@
 import React from 'react';
 
-const VideoListItem = ({video}) =>{
+const VideoListItem = ({video, onVideoSelect}) =>{
 
   // putting {video} in the argument is identical as the writing the line below
   // const video  = props.video;
+  // const onVideoSelect = props.onVideoSelect
   // console.log(video);
-  
+
   const imageUrl = video.snippet.thumbnails.default.url;
+  // passing callbacks from app to videolist and then VideoListItem
+  // onVideoSelect
+  // don't do it for more than two layers down 
   return (
-    <li className="list-group-item">
+
+    <li onClick={() => onVideoSelect(video)} className="list-group-item">
       <div className="video-list media">
 
         <div className ="media-left">

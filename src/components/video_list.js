@@ -8,8 +8,15 @@ const VideoList = (props) => {
 
   // {props.videos.length}
   // using map instead for or use for each
+  // taking the prop and passing it down the video list item 
   const videoItems = props.videos.map((video) =>{
-    return <VideoListItem key={video.etag} video={video} />
+    return (
+      <VideoListItem
+
+        onVideoSelect = {props.onVideoSelect}
+        key={video.etag}
+        video={video} />
+      );
 
   });
 
