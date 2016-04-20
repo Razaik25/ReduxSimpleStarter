@@ -1,4 +1,4 @@
-
+import _ from 'lodash';
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import YTSearch from 'youtube-api-search';
@@ -23,26 +23,35 @@ class App extends Component {
       videos: [],
       selectedVideo: null
     };
+
+    this.videoSearch('surfboards');
+
+  }
+
+  videoSearch(term) {
     // videos is a callback function
-    YTSearch({key:API_KEY, term: 'surfboards'}, (videos) => {
+    YTSearch({key:API_KEY, term: term }, (videos) => {
       // in es6 syntax,  if key and property are the same varibale name, same as this.setState({ videos: videos });
       this.setState({
         videos: videos,
         selectedVideo: videos[0]
       });
     });
+
   }
 
   // video_list needs access to this.state.videos i.e passing data from app(parent) to child (video_list)
  // that is passing props
   render(){
     {/* Webpack/babel transpiles JSX to vanilla JS */}
+    // throttling the function videoSearch function using lodash every 300 milliseconds
+    const videoSearch = _.debounce( (term) => {this.videoSearch(term)}, 300);
     return (
       <div>
-        <SearchBar />
+        <SearchBar onSearchTermChange = {videoSearch}/>
         <VideoDetail video={this.state.selectedVideo} />
         <VideoList
-          onVideoSelect ={selectedVideo => this.setState({ selectedVideo }) } 
+          onVideoSelect ={selectedVideo => this.setState({ selectedVideo }) }
           videos={this.state.videos} />
       </div>
     );
